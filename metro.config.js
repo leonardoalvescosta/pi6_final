@@ -1,11 +1,15 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 
-/**
- * Metro configuration
- * https://reactnative.dev/docs/metro
- *
- * @type {import('metro-config').MetroConfig}
- */
-const config = {};
+const defaultConfig = getDefaultConfig(__dirname);
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = mergeConfig(defaultConfig, {
+  resolver: {
+    extraNodeModules: {
+      "react-native": __dirname + "/node_modules/react-native",
+      "@react-native/virtualized-lists": __dirname + "/node_modules/@react-native/virtualized-lists"
+    }
+  },
+  watchFolders: [
+    __dirname + "/node_modules"
+  ]
+});
